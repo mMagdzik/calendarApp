@@ -70,7 +70,10 @@ const CalendarApp = () => {
               className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#00a3ff]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
           </div>
-          <textarea placeholder="Enter Event Text (Maximum 60 Characters)"></textarea>
+          <textarea
+            placeholder="Enter Event Text (Maximum 60 Characters)"
+            className="w-[clamp(15rem,15cqi,25rem)] aspect-[5/2] resize-none bg-[#354152] p-[1rem] rounded-[0.5rem] border-[0.1rem] border-transparent outline-none text-[#78879e]  duration-500  focus:border-[#00a3ff] placeholder:text-[clamp(1rem,0.8cqi,1.2rem)] placeholder:text-[#78879e] "
+          ></textarea>
           <button className="event-popup-btn">Add Event</button>
           <button className="close-event-popup">
             <i className="bx bx-x"></i>
