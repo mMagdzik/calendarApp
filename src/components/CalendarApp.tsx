@@ -1,5 +1,6 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { FiMessageCircle, FiEdit } from "react-icons/fi";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const CalendarApp = () => {
   return (
@@ -44,7 +45,7 @@ const CalendarApp = () => {
       </div>
 
       <div className="w-3/5 h-full py-[3rem] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className=" absolute top-[38%] left-[3rem] bg-[#161b22] w-[clamp(25rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem]">
+        <div className=" absolute top-[35%] left-[3rem] bg-[#161b22] w-[clamp(25rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
           <div className="flex gap-[1rem]">
             <div
               className="w-[clamp(4rem,4cqi,7rem)] bg-[#00a3ff] text-[#fff] font-[Bebas_Neue] 
@@ -74,9 +75,11 @@ const CalendarApp = () => {
             placeholder="Enter Event Text (Maximum 60 Characters)"
             className="w-[clamp(15rem,15cqi,25rem)] aspect-[5/2] resize-none bg-[#354152] p-[1rem] rounded-[0.5rem] border-[0.1rem] border-transparent outline-none text-[#78879e]  duration-500  focus:border-[#00a3ff] placeholder:text-[clamp(1rem,0.8cqi,1.2rem)] placeholder:text-[#78879e] "
           ></textarea>
-          <button className="event-popup-btn">Add Event</button>
-          <button className="close-event-popup">
-            <i className="bx bx-x"></i>
+          <button className="w-[clamp(15rem,15cqi,25rem)] h-[4rem] bg-[#ef9011] text-[#fff] text-[clamp(1.5rem,1.5cqi,2.2rem)] tracking-[0.1rem]border-none shadow-[0_0_1.5rem_1rem_rgba(239,144,17,0.2)]cursor-pointer font-[Bebas Neue, sans-serif] rounded-[0.5rem] active:translate-y-[0.1rem]">
+            Add Event
+          </button>
+          <button className="absolute top-4 right-4 bg-transparent border-none cursor-pointer">
+            <IoCloseCircleOutline className="text-[2.5rem] text-[#fff]" />
           </button>
         </div>
         <div className="w-full h-[7rem] bg-[#00a3ff] py-[1.5rem] rounded-[1rem] flex items-center mb-[2rem] relative">
