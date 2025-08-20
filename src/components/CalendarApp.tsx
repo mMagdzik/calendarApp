@@ -1,4 +1,5 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { FiMessageCircle, FiEdit } from "react-icons/fi";
 
 const CalendarApp = () => {
   return (
@@ -16,8 +17,8 @@ const CalendarApp = () => {
             2024
           </h2>
           <div className="flex gap-[1rem] ml-auto">
-            <FaAngleLeft className="bx bx-chevron-left w-[3.5rem] h-[3.5rem] bg-[#2c3542] rounded-full flex justify-center items-center text-[2rem] text-[#c97f1a] cursor-pointer " />
-            <FaAngleRight className="bx bx-chevron-left w-[3.5rem] h-[3.5rem] bg-[#2c3542] rounded-full flex justify-center items-center text-[2rem] text-[#c97f1a] cursor-pointer " />
+            <FaAngleLeft className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#c97f1a] cursor-pointer" />
+            <FaAngleRight className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#c97f1a] cursor-pointer" />
           </div>
         </div>
         <div className="w-full flex my-[3rem]">
@@ -41,23 +42,32 @@ const CalendarApp = () => {
           ))}
         </div>
       </div>
+
       <div className="w-3/5 h-full py-[3rem] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="event-popup">
-          <div className="time-input">
-            <div className="event-popup-time">Time</div>
+        <div className=" absolute top-[38%] left-[3rem] bg-[#161b22] w-[clamp(25rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem]">
+          <div className="flex gap-[1rem]">
+            <div
+              className="w-[clamp(4rem,4cqi,7rem)] bg-[#00a3ff] text-[#fff] font-[Bebas_Neue] 
+              text-[clamp(1.5rem,1.5cqi,2.2rem)] 
+              flex justify-center items-center 
+              shadow-[0_0_1.5rem_1rem_rgba(0,163,255,0.2)] 
+              tracking-[0.1rem]"
+            >
+              Time
+            </div>
             <input
               type="number"
               name="hours"
               min={0}
               max={24}
-              className="hours"
+              className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#00a3ff]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <input
               type="number"
               name="minutes"
               min={0}
               max={60}
-              className="minutes"
+              className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#00a3ff]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
           </div>
           <textarea placeholder="Enter Event Text (Maximum 60 Characters)"></textarea>
@@ -66,15 +76,21 @@ const CalendarApp = () => {
             <i className="bx bx-x"></i>
           </button>
         </div>
-        <div className="event">
-          <div className="event-date-wrapper">
-            <div className="event-date">May 15, 2024</div>
-            <div className="event-time">10:00</div>
+        <div className="w-full h-[7rem] bg-[#00a3ff] py-[1.5rem] rounded-[1rem] flex items-center mb-[2rem] relative">
+          <div className="flex flex-col items-center w-1/4  border-r border-[rgba(255,255,255,0.5)]">
+            <div className="text-[clamp(1rem,1cqi,1.2rem)] text-[#ddd]">
+              May 15, 2024
+            </div>
+            <div className="text-[clamp(1.3rem,1cqi,1.6rem)] text-[#fff] font-bold leading-[4rem]">
+              10:00
+            </div>
           </div>
-          <div className="event-text">Meeting</div>
-          <div className="event-buttons">
-            <i className="bx bxs-edit-alt"></i>
-            <i className="bxr  bx-message"></i>
+          <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word">
+            Meeting
+          </div>
+          <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
+            <FiEdit className="text-[#fff] cursor-pointer text-[1rem]" />
+            <FiMessageCircle className="text-[#fff] cursor-pointer text-[1rem]" />
           </div>
         </div>
       </div>
