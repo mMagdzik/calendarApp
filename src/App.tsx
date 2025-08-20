@@ -2,7 +2,7 @@ import CalendarApp from "./components/CalendarApp";
 
 function App() {
   return (
-    <div className="">
+    <div className="w-full h-screen bg-[#2c3542] grid place-items-center perspective-[100rem] ">
       <CalendarApp />
     </div>
   );
