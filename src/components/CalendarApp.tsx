@@ -31,9 +31,14 @@ const CalendarApp: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState<number>(
     currentDate.getMonth()
   );
-  const [currentYeat, setCurrentYear] = useState<number>(
+  const [currentYear, setCurrentYear] = useState<number>(
     currentDate.getFullYear()
   );
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+  const monthName = monthsOfYear[currentMonth];
 
   return (
     <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[3rem] rounded-[3rem] border-[0.5rem] border-[#56819a] flex gap-[5rem] relative [transform-style:preserve-3d]">
@@ -44,10 +49,10 @@ const CalendarApp: React.FC = () => {
         </h1>
         <div className="flex items-center gap-[1rem] my-[3.5rem]">
           <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] pl-[0.3rem]">
-            May,
+            {monthName},
           </h2>
           <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] pl-[1.3rem]">
-            2024
+            {currentYear}
           </h2>
           <div className="flex gap-[1rem] ml-auto">
             <FaAngleLeft className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#e8f05a] cursor-pointer active:translate-y-[0.1rem]" />
