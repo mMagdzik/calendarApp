@@ -5,13 +5,13 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 
 const CalendarApp: React.FC = () => {
   const daysOfWeek: string[] = [
+    "Sun",
     "Mon",
     "Tue",
     "Wed",
     "Thu",
     "Fri",
     "Sat",
-    "Sun",
   ];
   const monthsOfYear: string[] = [
     "January",
@@ -70,12 +70,18 @@ const CalendarApp: React.FC = () => {
           ))}
         </div>
         <div className="flex flex-wrap">
-          {Array.from({ length: 31 }, (_, i) => (
+          {[...Array(firstDayOfMonth).keys()].map((_, index) => (
             <span
-              key={i}
+              key={`empty-${index}`}
+              className="text-[clamp(1.2rem,1cqi,1.6rem)] w-[calc(100%/7)] aspect-square flex justify-center items-center text-[#ddd] cursor-pointer [text-shadow:0_0.5rem_1rem_rgba(0,0,0,0.2)]"
+            />
+          ))}
+          {[...Array(daysInMonth).keys()].map((day) => (
+            <span
+              key={day + 1}
               className="text-[clamp(1.2rem,1cqi,1.6rem)] w-[calc(100%/7)] aspect-square flex justify-center items-center text-[#ddd] cursor-pointer [text-shadow:0_0.5rem_1rem_rgba(0,0,0,0.2)]"
             >
-              {i + 1}
+              {day + 1}
             </span>
           ))}
         </div>
