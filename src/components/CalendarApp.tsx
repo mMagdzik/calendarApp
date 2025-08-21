@@ -1,8 +1,37 @@
+import { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { FiMessageCircle, FiEdit } from "react-icons/fi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
-const CalendarApp = () => {
+const CalendarApp: React.FC = () => {
+  const daysOfWeek: string[] = [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun",
+  ];
+  const monthsOfYear: string[] = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const currentDate: Date = new Date();
+  const [currentMonth, setCurrentMonth] = useState<number>(
+    currentDate.getMonth()
+  );
+
   return (
     <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[3rem] rounded-[3rem] border-[1rem] border-[#0f1319] flex gap-[5rem] relative [transform-style:preserve-3d]">
       <div className="absolute bottom-[-12rem] left-1/2 -translate-x-1/2 rotate-x-[50deg] w-[90%] h-[16rem] bg-[rgba(0,0,0,0.5)]  blur-[4rem]"></div>
@@ -11,7 +40,7 @@ const CalendarApp = () => {
           Calendar
         </h1>
         <div className="flex items-center gap-[1rem] my-[3.5rem]">
-          <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] pl-[1.3rem]">
+          <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] pl-[0.3rem]">
             May,
           </h2>
           <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] pl-[1.3rem]">
@@ -23,7 +52,7 @@ const CalendarApp = () => {
           </div>
         </div>
         <div className="w-full flex my-[3rem]">
-          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+          {daysOfWeek.map((day) => (
             <span
               key={day}
               className="w-[calc(100%/7)] text-[clamp(1rem,0.8cqi,1.3rem)] font-bold uppercase text-[#78879e] tracking-[0.1rem] flex justify-center"
@@ -45,7 +74,7 @@ const CalendarApp = () => {
       </div>
 
       <div className="w-3/5 h-full py-[3rem] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className=" absolute top-[35%] left-[3rem] bg-[#161b22] w-[clamp(25rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
+        <div className="hidden absolute top-[35%] left-[3rem] bg-[#161b22] w-[clamp(25rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
           <div className="flex gap-[1rem]">
             <div
               className="w-[clamp(4rem,4cqi,7rem)] bg-[#00a3ff] text-[#fff] font-[Bebas_Neue] 
@@ -95,8 +124,8 @@ const CalendarApp = () => {
             Meeting
           </div>
           <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
-            <FiEdit className="text-[#fff] cursor-pointer text-[1rem]" />
-            <FiMessageCircle className="text-[#fff] cursor-pointer text-[1rem]" />
+            <FiEdit className="text-[#fff] cursor-pointer text-[2rem]" />
+            <FiMessageCircle className="text-[#fff] cursor-pointer text-[2rem]" />
           </div>
         </div>
       </div>
