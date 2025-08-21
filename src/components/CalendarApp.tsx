@@ -60,10 +60,18 @@ const CalendarApp: React.FC = () => {
     const clickedDate = new Date(currentYear, currentMonth, day);
     const today = new Date();
 
-    if (clickedDate >= today) {
+    if (clickedDate >= today || isSameDay(clickedDate, today)) {
       setSelectedDate(clickedDate);
       setShowEventPopup(true);
     }
+  };
+
+  const isSameDay = (date1, date2) => {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
   };
 
   return (
@@ -129,7 +137,7 @@ const CalendarApp: React.FC = () => {
 
       <div className="w-3/5 h-full py-[3rem] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {showEventPopup && (
-          <div className=" absolute top-[30%] left-[3rem] bg-[#161b22] w-[clamp(30rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
+          <div className="z-10 absolute top-[20%] left-[3rem] bg-[#161b22] w-[clamp(30rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
             <div className="flex gap-[1rem]">
               <div
                 className="w-[clamp(4rem,4cqi,7rem)] bg-[#56819a] text-[#fff] font-[Bebas_Neue] 
@@ -162,7 +170,10 @@ const CalendarApp: React.FC = () => {
             <button className="w-[clamp(15rem,15cqi,25rem)] h-[4rem] bg-[#e8f05a] text-[#000] text-[clamp(1.5rem,1.5cqi,2.2rem)] tracking-[0.1rem]border-none shadow-[0_0_1.5rem_1rem_rgba(239,144,17,0.2)]cursor-pointer font-[Bebas Neue, sans-serif] rounded-[0.5rem] active:translate-y-[0.1rem] ">
               Add Event
             </button>
-            <button className="absolute top-4 right-4 bg-transparent border-none cursor-pointer active:translate-y-[0.1rem]">
+            <button
+              className="absolute top-4 right-4 bg-transparent border-none cursor-pointer active:translate-y-[0.1rem]"
+              onClick={() => setShowEventPopup(false)}
+            >
               <IoCloseCircleOutline className="text-[2.5rem] text-[#fff]" />
             </button>
           </div>
