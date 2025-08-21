@@ -34,6 +34,8 @@ const CalendarApp: React.FC = () => {
   const [currentYear, setCurrentYear] = useState<number>(
     currentDate.getFullYear()
   );
+  const [selectedDate, setSelectedDate] = useState(currentDate);
+  const [showEventPopup, setShowEventPopup] = useState(false);
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -52,6 +54,16 @@ const CalendarApp: React.FC = () => {
     setCurrentYear((prevYear) =>
       currentMonth === 11 ? prevYear - 1 : prevYear
     );
+  };
+
+  const handleDayClick = (day) => {
+    const clickedDate = new Date(currentYear, currentMonth, day);
+    const today = new Date();
+
+    if (clickedDate >= today) {
+      setSelectedDate(clickedDate);
+      setShowEventPopup(true);
+    }
   };
 
   return (
@@ -107,6 +119,7 @@ const CalendarApp: React.FC = () => {
                    ? "bg-[#e8f05a] rounded-full shadow-[0_0_2rem_rgba(239,144,17,0.99)] text-[#0d0c0c] "
                    : "text-[#ddd]"
                }`}
+              onClick={() => handleDayClick(day + 1)}
             >
               {day + 1}
             </span>
@@ -115,43 +128,45 @@ const CalendarApp: React.FC = () => {
       </div>
 
       <div className="w-3/5 h-full py-[3rem] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="hidden absolute top-[35%] left-[3rem] bg-[#161b22] w-[clamp(25rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
-          <div className="flex gap-[1rem]">
-            <div
-              className="w-[clamp(4rem,4cqi,7rem)] bg-[#56819a] text-[#fff] font-[Bebas_Neue] 
+        {showEventPopup && (
+          <div className=" absolute top-[30%] left-[3rem] bg-[#161b22] w-[clamp(30rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
+            <div className="flex gap-[1rem]">
+              <div
+                className="w-[clamp(4rem,4cqi,7rem)] bg-[#56819a] text-[#fff] font-[Bebas_Neue] 
               text-[clamp(1.5rem,1.5cqi,2.2rem)] 
               flex justify-center items-center 
               shadow-[0_0_1.5rem_1rem_rgba(0,163,255,0.2)] 
-              tracking-[0.1rem]"
-            >
-              Time
+              tracking-[0.1rem] rounded-[0.5rem]"
+              >
+                Time
+              </div>
+              <input
+                type="number"
+                name="hours"
+                min={0}
+                max={24}
+                className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#56819a]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+              <input
+                type="number"
+                name="minutes"
+                min={0}
+                max={60}
+                className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#56819a]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
             </div>
-            <input
-              type="number"
-              name="hours"
-              min={0}
-              max={24}
-              className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#56819a]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            />
-            <input
-              type="number"
-              name="minutes"
-              min={0}
-              max={60}
-              className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#56819a]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            />
+            <textarea
+              placeholder="Enter Event Text (Maximum 60 Characters)"
+              className="w-[clamp(15rem,15cqi,25rem)] aspect-[5/2] resize-none bg-[#354152] p-[1rem] rounded-[0.5rem] border-[0.1rem] border-transparent outline-none text-[#d5deeb]  duration-500  focus:border-[#56819a] placeholder:text-[clamp(1rem,0.8cqi,1.2rem)] placeholder:text-[#78879e] "
+            ></textarea>
+            <button className="w-[clamp(15rem,15cqi,25rem)] h-[4rem] bg-[#e8f05a] text-[#000] text-[clamp(1.5rem,1.5cqi,2.2rem)] tracking-[0.1rem]border-none shadow-[0_0_1.5rem_1rem_rgba(239,144,17,0.2)]cursor-pointer font-[Bebas Neue, sans-serif] rounded-[0.5rem] active:translate-y-[0.1rem] ">
+              Add Event
+            </button>
+            <button className="absolute top-4 right-4 bg-transparent border-none cursor-pointer active:translate-y-[0.1rem]">
+              <IoCloseCircleOutline className="text-[2.5rem] text-[#fff]" />
+            </button>
           </div>
-          <textarea
-            placeholder="Enter Event Text (Maximum 60 Characters)"
-            className="w-[clamp(15rem,15cqi,25rem)] aspect-[5/2] resize-none bg-[#354152] p-[1rem] rounded-[0.5rem] border-[0.1rem] border-transparent outline-none text-[#78879e]  duration-500  focus:border-[#56819a] placeholder:text-[clamp(1rem,0.8cqi,1.2rem)] placeholder:text-[#78879e] "
-          ></textarea>
-          <button className="w-[clamp(15rem,15cqi,25rem)] h-[4rem] bg-[#e8f05a] text-[#fff] text-[clamp(1.5rem,1.5cqi,2.2rem)] tracking-[0.1rem]border-none shadow-[0_0_1.5rem_1rem_rgba(239,144,17,0.2)]cursor-pointer font-[Bebas Neue, sans-serif] rounded-[0.5rem] active:translate-y-[0.1rem]">
-            Add Event
-          </button>
-          <button className="absolute top-4 right-4 bg-transparent border-none cursor-pointer">
-            <IoCloseCircleOutline className="text-[2.5rem] text-[#fff]" />
-          </button>
-        </div>
+        )}
         <div className="w-full h-[7rem] bg-[#56819a] py-[1.5rem] rounded-[1rem] flex items-center mb-[2rem] relative">
           <div className="flex flex-col items-center w-1/4  border-r border-[rgba(255,255,255,0.5)]">
             <div className="text-[clamp(1rem,1cqi,1.2rem)] text-[#ddd]">
