@@ -104,7 +104,7 @@ const CalendarApp: React.FC = () => {
                  day + 1 === currentDate.getDate() &&
                  currentMonth === currentDate.getMonth() &&
                  currentYear === currentDate.getFullYear()
-                   ? "bg-[#e8f05a] rounded-full shadow-[0_0_1.5rem_rgba(239,144,17,0.3)] text-[#0d0c0c] "
+                   ? "bg-[#e8f05a] rounded-full shadow-[0_0_2rem_rgba(239,144,17,0.99)] text-[#0d0c0c] "
                    : "text-[#ddd]"
                }`}
             >
