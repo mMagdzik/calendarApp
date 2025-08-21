@@ -40,6 +40,20 @@ const CalendarApp: React.FC = () => {
 
   const monthName = monthsOfYear[currentMonth];
 
+  const prevMonth = () => {
+    setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
+    setCurrentYear((prevYear) =>
+      currentMonth === 0 ? prevYear - 1 : prevYear
+    );
+  };
+
+  const nextMonth = () => {
+    setCurrentMonth((prevMonth) => (prevMonth === 11 ? 0 : prevMonth + 1));
+    setCurrentYear((prevYear) =>
+      currentMonth === 11 ? prevYear - 1 : prevYear
+    );
+  };
+
   return (
     <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[3rem] rounded-[3rem] border-[0.5rem] border-[#56819a] flex gap-[5rem] relative [transform-style:preserve-3d]">
       <div className="absolute bottom-[-12rem] left-1/2 -translate-x-1/2 rotate-x-[50deg] w-[90%] h-[16rem] bg-[rgba(0,0,0,0.5)]  blur-[4rem]"></div>
@@ -55,8 +69,14 @@ const CalendarApp: React.FC = () => {
             {currentYear}
           </h2>
           <div className="flex gap-[1rem] ml-auto">
-            <FaAngleLeft className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#e8f05a] cursor-pointer active:translate-y-[0.1rem]" />
-            <FaAngleRight className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#e8f05a] cursor-pointer active:translate-y-[0.1rem]" />
+            <FaAngleLeft
+              className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#e8f05a] cursor-pointer active:translate-y-[0.1rem]"
+              onClick={prevMonth}
+            />
+            <FaAngleRight
+              className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#e8f05a] cursor-pointer active:translate-y-[0.1rem]"
+              onClick={nextMonth}
+            />
           </div>
         </div>
         <div className="w-full flex my-[3rem]">
