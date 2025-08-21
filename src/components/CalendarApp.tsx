@@ -99,7 +99,14 @@ const CalendarApp: React.FC = () => {
           {[...Array(daysInMonth).keys()].map((day) => (
             <span
               key={day + 1}
-              className="text-[clamp(1.2rem,1cqi,1.6rem)] w-[calc(100%/7)] aspect-square flex justify-center items-center text-[#ddd] cursor-pointer [text-shadow:0_0.5rem_1rem_rgba(0,0,0,0.2)]"
+              className={`text-[clamp(1.2rem,1cqi,1.6rem)] w-[calc(100%/7)] aspect-square flex justify-center items-center cursor-pointer [text-shadow:0_0.5rem_1rem_rgba(0,0,0,0.2)]
+               ${
+                 day + 1 === currentDate.getDate() &&
+                 currentMonth === currentDate.getMonth() &&
+                 currentYear === currentDate.getFullYear()
+                   ? "bg-[#e8f05a] rounded-full shadow-[0_0_1.5rem_rgba(239,144,17,0.3)] text-[#0d0c0c] "
+                   : "text-[#ddd]"
+               }`}
             >
               {day + 1}
             </span>
