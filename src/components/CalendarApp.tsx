@@ -277,7 +277,7 @@ const CalendarApp: React.FC = () => {
                   {event.time}
                 </div>
               </div>
-              <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word items-center flex ">
+              <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] flex items-center break-all  ">
                 {event.text}
               </div>
               <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
