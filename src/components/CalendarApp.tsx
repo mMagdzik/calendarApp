@@ -48,6 +48,8 @@ const CalendarApp: React.FC = () => {
     minutes: string;
   }>({ hours: "00", minutes: "00" });
   const [eventText, setEventText] = useState<string>("");
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [] = useState();
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -77,6 +79,7 @@ const CalendarApp: React.FC = () => {
       setShowEventPopup(true);
       setEventText("");
       setEventTime({ hours: "00", minutes: "00" });
+      setEditingEvent(null);
     }
   };
 
@@ -90,11 +93,13 @@ const CalendarApp: React.FC = () => {
 
   const handleEventSubmit = () => {
     const newEvent = {
+      id: editingEvent ? editingEvent.id : Date.now(),
       date: selectedDate,
       time: `${eventTime.hours.padStart(2, "0")}:${eventTime.minutes.padStart(
         2,
         "0"
       )}`,
+      text: eventText,
     };
 
     setEvents([...events, newEvent]);
@@ -190,7 +195,9 @@ const CalendarApp: React.FC = () => {
               />
               <input
                 value={eventTime.minutes}
-                onChange={(e) => ({ ...eventTime, minutes: e.target.value })}
+                onChange={(e) =>
+                  setEventTime({ ...eventTime, minutes: e.target.value })
+                }
                 type="number"
                 name="minutes"
                 min={0}
@@ -208,7 +215,10 @@ const CalendarApp: React.FC = () => {
               placeholder="Enter Event Text (Maximum 60 Characters)"
               className="w-[clamp(15rem,15cqi,25rem)] aspect-[5/2] resize-none bg-[#354152] p-[1rem] rounded-[0.5rem] border-[0.1rem] border-transparent outline-none text-[#d5deeb]  duration-500  focus:border-[#56819a] placeholder:text-[clamp(1rem,0.8cqi,1.2rem)] placeholder:text-[#78879e] "
             ></textarea>
-            <button className="w-[clamp(15rem,15cqi,25rem)] h-[4rem] bg-[#e8f05a] text-[#000] text-[clamp(1.5rem,1.5cqi,2.2rem)] tracking-[0.1rem]border-none shadow-[0_0_1.5rem_1rem_rgba(239,144,17,0.2)]cursor-pointer font-[Bebas Neue, sans-serif] rounded-[0.5rem] active:translate-y-[0.1rem] ">
+            <button
+              className="w-[clamp(15rem,15cqi,25rem)] h-[4rem] bg-[#e8f05a] text-[#000] text-[clamp(1.5rem,1.5cqi,2.2rem)] tracking-[0.1rem]border-none shadow-[0_0_1.5rem_1rem_rgba(239,144,17,0.2)]cursor-pointer font-[Bebas Neue, sans-serif] rounded-[0.5rem] active:translate-y-[0.1rem] "
+              onClick={handleEventSubmit}
+            >
               Add Event
             </button>
             <button
@@ -227,14 +237,16 @@ const CalendarApp: React.FC = () => {
             >
               <div className="flex flex-col items-center w-1/4  border-r border-[rgba(255,255,255,0.5)]">
                 <div className="text-[clamp(1rem,1cqi,1.2rem)] text-[#ddd]">
-                  {`${monthsOfYear[event.date.getMonth()]} `}
+                  {`${
+                    monthsOfYear[event.date.getMonth()]
+                  } ${event.date.getDate()}, ${event.date.getFullYear()} `}
                 </div>
                 <div className="text-[clamp(1.3rem,1cqi,1.6rem)] text-[#fff] font-bold leading-[4rem]">
-                  {`${eventTime}`}
+                  {event.time}
                 </div>
               </div>
               <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word">
-                {`${eventText}`}
+                {event.text}
               </div>
               <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
                 <FiEdit className="text-[#fff] cursor-pointer text-[2rem]" />
