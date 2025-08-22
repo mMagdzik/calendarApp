@@ -251,7 +251,7 @@ const CalendarApp: React.FC = () => {
               className="w-[clamp(15rem,15cqi,25rem)] h-[4rem] bg-[#e8f05a] text-[#000] text-[clamp(1.5rem,1.5cqi,2.2rem)] tracking-[0.1rem]border-none shadow-[0_0_1.5rem_1rem_rgba(239,144,17,0.2)]cursor-pointer font-[Bebas Neue, sans-serif] rounded-[0.5rem] active:translate-y-[0.1rem] "
               onClick={handleEventSubmit}
             >
-              Add Event
+              {editingEvent ? "Update Event" : "Add Event"}
             </button>
             <button
               className="absolute top-4 right-4 bg-transparent border-none cursor-pointer active:translate-y-[0.1rem]"
@@ -264,28 +264,28 @@ const CalendarApp: React.FC = () => {
         {events.map((event, index) => {
           return (
             <div
-              className="w-full h-[7rem] bg-[#56819a] py-[1.5rem] rounded-[1rem] flex items-center mb-[2rem] relative"
+              className="w-full h-[7rem] bg-[#56819a] my-[1.5rem] rounded-[1rem] flex justify-center mb-[2rem] relative"
               key={index}
             >
-              <div className="flex flex-col items-center w-1/4  border-r border-[rgba(255,255,255,0.5)]">
-                <div className="text-[clamp(1rem,1cqi,1.2rem)] text-[#ddd]">
+              <div className="flex flex-col text-center w-1/4 px-5   border-r border-[rgba(255,255,255,0.5)] ">
+                <div className="text-[clamp(1.1rem,1cqi,1.3rem)] text-[#ddd] text-center pt-1 ">
                   {`${
                     monthsOfYear[event.date.getMonth()]
                   } ${event.date.getDate()}, ${event.date.getFullYear()} `}
                 </div>
-                <div className="text-[clamp(1.3rem,1cqi,1.6rem)] text-[#fff] font-bold leading-[4rem]">
+                <div className="text-[clamp(1.2rem,1cqi,1.5rem)] text-[#fff] font-bold leading-[4rem]">
                   {event.time}
                 </div>
               </div>
-              <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word">
+              <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word items-center flex ">
                 {event.text}
               </div>
               <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
                 <FiEdit
-                  className="text-[#fff] cursor-pointer text-[2rem]"
+                  className="text-[#fff] cursor-pointer text-[1.5rem] active:translate-y-[0.1rem]"
                   onClick={() => handleEditEvent(event)}
                 />
-                <FiMessageCircle className="text-[#fff] cursor-pointer text-[2rem]" />
+                <FiMessageCircle className="text-[#fff] cursor-pointer text-[1.5rem] active:translate-y-[0.1rem]" />
               </div>
             </div>
           );
