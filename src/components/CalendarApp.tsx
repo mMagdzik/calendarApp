@@ -36,7 +36,7 @@ const CalendarApp: React.FC = () => {
   );
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
   const [showEventPopup, setShowEventPopup] = useState<boolean>(false);
-  const [events, showEvents] = useState<string[]>([]);
+  const [events, setEvents] = useState<string[]>([]);
   const [eventTime, setEventTime] = useState<{
     hours: string;
     minutes: string;
@@ -91,7 +91,7 @@ const CalendarApp: React.FC = () => {
       )}`,
     };
 
-    showEvents([...events, newEvent]);
+    setEvents([...events, newEvent]);
     setEventTime({ hours: "00", minutes: "00" });
     setEventText("");
     setShowEventPopup(false);
@@ -213,23 +213,30 @@ const CalendarApp: React.FC = () => {
             </button>
           </div>
         )}
-        <div className="w-full h-[7rem] bg-[#56819a] py-[1.5rem] rounded-[1rem] flex items-center mb-[2rem] relative">
-          <div className="flex flex-col items-center w-1/4  border-r border-[rgba(255,255,255,0.5)]">
-            <div className="text-[clamp(1rem,1cqi,1.2rem)] text-[#ddd]">
-              May 15, 2024
+        {events.map((event, index) => {
+          return (
+            <div
+              className="w-full h-[7rem] bg-[#56819a] py-[1.5rem] rounded-[1rem] flex items-center mb-[2rem] relative"
+              key={index}
+            >
+              <div className="flex flex-col items-center w-1/4  border-r border-[rgba(255,255,255,0.5)]">
+                <div className="text-[clamp(1rem,1cqi,1.2rem)] text-[#ddd]">
+                  {monthsOfYear[currentMonth]} 15, 2024
+                </div>
+                <div className="text-[clamp(1.3rem,1cqi,1.6rem)] text-[#fff] font-bold leading-[4rem]">
+                  10:00
+                </div>
+              </div>
+              <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word">
+                Meeting
+              </div>
+              <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
+                <FiEdit className="text-[#fff] cursor-pointer text-[2rem]" />
+                <FiMessageCircle className="text-[#fff] cursor-pointer text-[2rem]" />
+              </div>
             </div>
-            <div className="text-[clamp(1.3rem,1cqi,1.6rem)] text-[#fff] font-bold leading-[4rem]">
-              10:00
-            </div>
-          </div>
-          <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word">
-            Meeting
-          </div>
-          <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
-            <FiEdit className="text-[#fff] cursor-pointer text-[2rem]" />
-            <FiMessageCircle className="text-[#fff] cursor-pointer text-[2rem]" />
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );
