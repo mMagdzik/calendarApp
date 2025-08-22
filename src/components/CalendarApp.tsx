@@ -35,12 +35,13 @@ const CalendarApp: React.FC = () => {
     currentDate.getFullYear()
   );
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
-  const [showEventPopup, setShowEventPopup] = useState<Boolean>(false);
+  const [showEventPopup, setShowEventPopup] = useState<boolean>(false);
   const [events, showEvents] = useState<string[]>([]);
   const [eventTime, setEventTime] = useState<{
     hours: string;
     minutes: string;
   }>({ hours: "00", minutes: "00" });
+  const [eventText, setEventText] = useState<string>("");
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -68,6 +69,8 @@ const CalendarApp: React.FC = () => {
     if (clickedDate >= today || isSameDay(clickedDate, today)) {
       setSelectedDate(clickedDate);
       setShowEventPopup(true);
+      setEventText("");
+      setEventTime({ hours: "00", minutes: "00" });
     }
   };
 
@@ -77,6 +80,21 @@ const CalendarApp: React.FC = () => {
       date1.getMonth() === date2.getMonth() &&
       date1.getDate() === date2.getDate()
     );
+  };
+
+  const handleEventSubmit = () => {
+    const newEvent = {
+      date: selectedDate,
+      time: `${eventTime.hours.padStart(2, "0")}:${eventTime.minutes.padStart(
+        2,
+        "0"
+      )}`,
+    };
+
+    showEvents([...events, newEvent]);
+    setEventTime({ hours: "00", minutes: "00" });
+    setEventText("");
+    setShowEventPopup(false);
   };
 
   return (
