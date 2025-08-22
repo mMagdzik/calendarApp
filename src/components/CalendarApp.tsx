@@ -3,6 +3,12 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { FiMessageCircle, FiEdit } from "react-icons/fi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
+type EventsType = {
+  date: Date;
+  time: string;
+  text?: string;
+};
+
 const CalendarApp: React.FC = () => {
   const daysOfWeek: string[] = [
     "Sun",
@@ -36,7 +42,7 @@ const CalendarApp: React.FC = () => {
   );
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
   const [showEventPopup, setShowEventPopup] = useState<boolean>(false);
-  const [events, setEvents] = useState<string[]>([]);
+  const [events, setEvents] = useState<EventsType[]>([]);
   const [eventTime, setEventTime] = useState<{
     hours: string;
     minutes: string;
@@ -221,14 +227,14 @@ const CalendarApp: React.FC = () => {
             >
               <div className="flex flex-col items-center w-1/4  border-r border-[rgba(255,255,255,0.5)]">
                 <div className="text-[clamp(1rem,1cqi,1.2rem)] text-[#ddd]">
-                  {monthsOfYear[currentMonth]} 15, 2024
+                  {`${monthsOfYear[event.date.getMonth()]} `}
                 </div>
                 <div className="text-[clamp(1.3rem,1cqi,1.6rem)] text-[#fff] font-bold leading-[4rem]">
-                  10:00
+                  {`${eventTime}`}
                 </div>
               </div>
               <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] overflow-break-word">
-                Meeting
+                {`${eventText}`}
               </div>
               <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
                 <FiEdit className="text-[#fff] cursor-pointer text-[2rem]" />
