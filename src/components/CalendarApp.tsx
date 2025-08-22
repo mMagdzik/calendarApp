@@ -7,6 +7,7 @@ type EventsType = {
   date: Date;
   time: string;
   text?: string;
+  id: number;
 };
 
 const CalendarApp: React.FC = () => {
@@ -48,8 +49,7 @@ const CalendarApp: React.FC = () => {
     minutes: string;
   }>({ hours: "00", minutes: "00" });
   const [eventText, setEventText] = useState<string>("");
-  const [editingEvent, setEditingEvent] = useState(null);
-  const [] = useState();
+  const [editingEvent, setEditingEvent] = useState<EventsType | null>(null);
 
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
@@ -102,10 +102,34 @@ const CalendarApp: React.FC = () => {
       text: eventText,
     };
 
-    setEvents([...events, newEvent]);
+    let updatedEvents = [...events];
+
+    if (editingEvent) {
+      updatedEvents = updatedEvents.map((event) =>
+        event.id === editingEvent.id ? newEvent : event
+      );
+    } else {
+      updatedEvents.push(newEvent);
+    }
+
+    updatedEvents.sort((a, b) => a.date.getTime() - b.date.getDate());
+
+    setEvents(updatedEvents);
     setEventTime({ hours: "00", minutes: "00" });
     setEventText("");
     setShowEventPopup(false);
+    setEditingEvent(null);
+  };
+
+  const handleEditEvent = (event: EventsType) => {
+    setSelectedDate(new Date(event.date));
+    setEventTime({
+      hours: event.time.split(":")[0],
+      minutes: event.time.split(":")[1],
+    });
+    setEventText(event.text ?? "");
+    setEditingEvent(event);
+    setShowEventPopup(true);
   };
 
   return (
@@ -188,16 +212,24 @@ const CalendarApp: React.FC = () => {
                 min={0}
                 max={24}
                 value={eventTime.hours}
-                onChange={(e) =>
-                  setEventTime({ ...eventTime, hours: e.target.value })
-                }
+                onChange={(e) => {
+                  const value = Math.max(
+                    0,
+                    Math.min(23, Number(e.target.value))
+                  );
+                  setEventTime({ ...eventTime, hours: value.toString() });
+                }}
                 className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#56819a]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <input
                 value={eventTime.minutes}
-                onChange={(e) =>
-                  setEventTime({ ...eventTime, minutes: e.target.value })
-                }
+                onChange={(e) => {
+                  const value = Math.max(
+                    0,
+                    Math.min(59, Number(e.target.value))
+                  );
+                  setEventTime({ ...eventTime, minutes: value.toString() });
+                }}
                 type="number"
                 name="minutes"
                 min={0}
@@ -249,7 +281,10 @@ const CalendarApp: React.FC = () => {
                 {event.text}
               </div>
               <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
-                <FiEdit className="text-[#fff] cursor-pointer text-[2rem]" />
+                <FiEdit
+                  className="text-[#fff] cursor-pointer text-[2rem]"
+                  onClick={() => handleEditEvent(event)}
+                />
                 <FiMessageCircle className="text-[#fff] cursor-pointer text-[2rem]" />
               </div>
             </div>
