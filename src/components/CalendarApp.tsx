@@ -176,9 +176,11 @@ const CalendarApp: React.FC = () => {
                 name="hours"
                 min={0}
                 max={24}
+                value={eventTime.hours}
                 className="bg-transparent border-t-[0.2rem] border-b-[0.2rem] border-[#56819a]  text-white w-[clamp(4rem,4cqi,7rem)] h-[4rem]  text-center text-[clamp(1.2rem,1.2cqi,1.6rem)] appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <input
+                value={eventTime.minutes}
                 type="number"
                 name="minutes"
                 min={0}
