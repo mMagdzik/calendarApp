@@ -193,6 +193,12 @@ const CalendarApp: React.FC = () => {
               />
             </div>
             <textarea
+              value={eventText}
+              onChange={(e) => {
+                if (e.target.value.length <= 60) {
+                  setEventText(e.target.value);
+                }
+              }}
               placeholder="Enter Event Text (Maximum 60 Characters)"
               className="w-[clamp(15rem,15cqi,25rem)] aspect-[5/2] resize-none bg-[#354152] p-[1rem] rounded-[0.5rem] border-[0.1rem] border-transparent outline-none text-[#d5deeb]  duration-500  focus:border-[#56819a] placeholder:text-[clamp(1rem,0.8cqi,1.2rem)] placeholder:text-[#78879e] "
             ></textarea>
