@@ -157,20 +157,35 @@ const CalendarApp: React.FC = () => {
   };
 
   return (
-    <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[2rem] rounded-[3rem] border-[0.5rem] border-[#56819a] flex gap-[5rem] relative [transform-style:preserve-3d] overflow-hidden">
-      <div className="absolute bottom-[-12rem] left-1/2 -translate-x-1/2 rotate-x-[50deg] w-[90%] h-[16rem] bg-[rgba(0,0,0,0.5)]  blur-[4rem] overflow-hidden"></div>
-      <div className="w-2/5">
+    <div
+      className="relative flex flex-col
+    w-[95%] h-[95vh] max-h-[95vh] bg-[#1e242d] p-[2rem] rounded-[3rem] border-[0.5rem] border-[#56819a]
+    gap-8 overflow-hidden [transform-style:preserve-3d]
+
+    /* small screens */
+    sm:w-full sm:h-auto sm:max-h-[95vh] sm:gap-8
+
+    /* medium screens */
+    md:w-3/5 md:h-auto md:gap-[5rem] md:flex-row
+
+    /* large screens */
+    lg:gap-[5rem] lg:border-[1rem]"
+    >
+      <div
+        className=" absolute bottom-[-12rem] left-1/2 -translate-x-1/2 rotate-x-[50deg]
+    h-[16rem] w-full bg-[rgba(0,0,0,0.5)] blur-[4rem] overflow-hidden
+    sm:w-[70%] sm:mx-auto
+    lg:w-[90%] lg:mx-0 "
+      ></div>
+      <div className="w-full md:w-2/5 m-5">
         <h1 className="font-[Bebas_Neue] text-[clamp(4rem,3.8cqi,7rem)] text-white tracking-[0.3rem] pl-[1.3rem]">
           Calendar
         </h1>
-        <div className="flex items-center gap-[1rem] my-[3.5rem]">
-          <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] pl-[0.3rem]">
-            {monthName},
+        <div className="flex flex-col sm:flex-row justify-between sm:gap:1 gap-[1rem] sm:my-[1rem] my-[2rem] ">
+          <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] ">
+            {monthName}, {currentYear}
           </h2>
-          <h2 className="text-[clamp(1.5rem,1.5cqi,2.5rem)] text-[#bbb] pl-[1.3rem]">
-            {currentYear}
-          </h2>
-          <div className="flex gap-[1rem] ml-auto">
+          <div className="flex gap-[1rem] items-center">
             <FaAngleLeft
               className="bx bx-chevron-left w-[2.5rem] h-[2.5rem] bg-[#2c3542] rounded-full flex justify-center items-center  text-[#e8f05a] cursor-pointer active:translate-y-[0.1rem]"
               onClick={prevMonth}
@@ -181,7 +196,7 @@ const CalendarApp: React.FC = () => {
             />
           </div>
         </div>
-        <div className="w-full flex my-[3rem]">
+        <div className="w-full flex my-[2rem]">
           {daysOfWeek.map((day) => (
             <span
               key={day}
@@ -191,7 +206,7 @@ const CalendarApp: React.FC = () => {
             </span>
           ))}
         </div>
-        <div className="flex flex-wrap">
+        <div className="grid grid-cols-7 gap-[0.25rem]">
           {[...Array(firstDayOfMonth).keys()].map((_, index) => (
             <span
               key={`empty-${index}`}
@@ -217,9 +232,13 @@ const CalendarApp: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-3/5 h-full py-[3rem] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className=" w-full md:w-3/5 h-full  overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {showEventPopup && (
-          <div className="z-10 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-[#161b22] w-[clamp(30rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
+          <div
+            className="z-10 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-[#161b22] w-[clamp(25rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]
+          
+          "
+          >
             <div className="flex gap-[1rem]">
               <div
                 className="w-[clamp(4rem,4cqi,7rem)] bg-[#56819a] text-[#fff] font-[Bebas_Neue] 
@@ -279,7 +298,7 @@ const CalendarApp: React.FC = () => {
               className="w-full h-[7rem] bg-[#56819a] my-1 rounded-[1rem] flex justify-center mb-[2rem] relative"
               key={index}
             >
-              <div className="flex flex-col text-center w-1/4 px-5   border-r border-[rgba(255,255,255,0.5)] ">
+              <div className="flex flex-col text-center xs:w-full  px-5   border-r border-[rgba(255,255,255,0.5)] ">
                 <div className="text-[clamp(1.1rem,1cqi,1.3rem)] text-[#ddd] text-center pt-1 ">
                   {`${
                     monthsOfYear[event.date.getMonth()]
