@@ -133,8 +133,8 @@ const CalendarApp: React.FC = () => {
   };
 
   return (
-    <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[3rem] rounded-[3rem] border-[0.5rem] border-[#56819a] flex gap-[5rem] relative [transform-style:preserve-3d]">
-      <div className="absolute bottom-[-12rem] left-1/2 -translate-x-1/2 rotate-x-[50deg] w-[90%] h-[16rem] bg-[rgba(0,0,0,0.5)]  blur-[4rem]"></div>
+    <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[3rem] rounded-[3rem] border-[0.5rem] border-[#56819a] flex gap-[5rem] relative [transform-style:preserve-3d] overflow-hidden">
+      <div className="absolute bottom-[-12rem] left-1/2 -translate-x-1/2 rotate-x-[50deg] w-[90%] h-[16rem] bg-[rgba(0,0,0,0.5)]  blur-[4rem] overflow-hidden"></div>
       <div className="w-2/5">
         <h1 className="font-[Bebas_Neue] text-[clamp(4rem,3.8cqi,7rem)] text-white tracking-[0.3rem] pl-[1.3rem]">
           Calendar
@@ -195,7 +195,7 @@ const CalendarApp: React.FC = () => {
 
       <div className="w-3/5 h-full py-[3rem] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {showEventPopup && (
-          <div className="z-10 absolute top-[20%] left-[3rem] bg-[#161b22] w-[clamp(30rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
+          <div className="z-10 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-[#161b22] w-[clamp(30rem,21cqi,40rem)] aspect-[10/9] rounded-[1rem] shadow-[0_1rem_3rem_rgba(0,0,0,0.3)] flex flex-col justify-center items-center gap-[2rem] p-[2rem]">
             <div className="flex gap-[1rem]">
               <div
                 className="w-[clamp(4rem,4cqi,7rem)] bg-[#56819a] text-[#fff] font-[Bebas_Neue] 
