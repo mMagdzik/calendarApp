@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { FiMessageCircle, FiEdit } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 type EventsType = {
@@ -132,8 +132,13 @@ const CalendarApp: React.FC = () => {
     setShowEventPopup(true);
   };
 
+  const handleDeleteEvent = (eventId: number) => {
+    const updatedEvents = events.filter((event) => event.id !== eventId);
+    setEvents(updatedEvents);
+  };
+
   return (
-    <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[3rem] rounded-[3rem] border-[0.5rem] border-[#56819a] flex gap-[5rem] relative [transform-style:preserve-3d] overflow-hidden">
+    <div className="w-3/5 min-w-[90vmin] aspect-[3/2] bg-[#1e242d] p-[2rem] rounded-[3rem] border-[0.5rem] border-[#56819a] flex gap-[5rem] relative [transform-style:preserve-3d] overflow-hidden">
       <div className="absolute bottom-[-12rem] left-1/2 -translate-x-1/2 rotate-x-[50deg] w-[90%] h-[16rem] bg-[rgba(0,0,0,0.5)]  blur-[4rem] overflow-hidden"></div>
       <div className="w-2/5">
         <h1 className="font-[Bebas_Neue] text-[clamp(4rem,3.8cqi,7rem)] text-white tracking-[0.3rem] pl-[1.3rem]">
@@ -264,7 +269,7 @@ const CalendarApp: React.FC = () => {
         {events.map((event, index) => {
           return (
             <div
-              className="w-full h-[7rem] bg-[#56819a] my-[1.5rem] rounded-[1rem] flex justify-center mb-[2rem] relative"
+              className="w-full h-[7rem] bg-[#56819a] my-1 rounded-[1rem] flex justify-center mb-[2rem] relative"
               key={index}
             >
               <div className="flex flex-col text-center w-1/4 px-5   border-r border-[rgba(255,255,255,0.5)] ">
@@ -280,12 +285,15 @@ const CalendarApp: React.FC = () => {
               <div className="text-[clamp(1.2rem,1cqi,1.4rem)] leading-[2rem] text-[#fff] w-3/4 pl-[1rem] pr-[3rem] flex items-center break-all  ">
                 {event.text}
               </div>
-              <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] ">
+              <div className="absolute top-1/2 -translate-y-1/2 right-4  flex flex-col gap-[1.1rem] items-center ">
+                <IoCloseCircleOutline
+                  className="text-[#fff] cursor-pointer text-[2rem] active:translate-y-[0.1rem]"
+                  onClick={() => handleDeleteEvent(event.id)}
+                />
                 <FiEdit
                   className="text-[#fff] cursor-pointer text-[1.5rem] active:translate-y-[0.1rem]"
                   onClick={() => handleEditEvent(event)}
                 />
-                <FiMessageCircle className="text-[#fff] cursor-pointer text-[1.5rem] active:translate-y-[0.1rem]" />
               </div>
             </div>
           );
